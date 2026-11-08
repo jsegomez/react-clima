@@ -4,11 +4,11 @@ import styles from './Form.module.css';
 import type { SearchFormData } from '../../types';
 import Alert from '../Alert/Alert';
 
-type FormProps = {
-    fetchWeather: (city: string, country: string) => Promise<void>;
-};
+// type FormProps = {
+//     fetchWeather: (city: string, country: string) => Promise<void>;
+// };
 
-export default function Form({ fetchWeather }: FormProps) {
+export default function Form() {
     const [formData, setFormData] = useState<SearchFormData>({
         city: '',
         country: ''
@@ -23,7 +23,6 @@ export default function Form({ fetchWeather }: FormProps) {
             return;
         }
 
-        fetchWeather(formData.city, formData.country);
     };
 
     return (
