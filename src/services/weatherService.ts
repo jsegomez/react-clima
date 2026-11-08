@@ -9,9 +9,9 @@ export async function getWeatherByCity(
     const { city, country } = formData;
     const { data } = await apiClient.get<WeatherResponse>('/weather', {
         params: {
-        q: `${city},${country}`,
-        units: 'metric',
-        lang: 'es',
+            q: `${city},${country}`,
+            units: 'metric',
+            lang: 'es',
         },
         signal,
     });
