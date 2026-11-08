@@ -2,18 +2,29 @@ import { useState } from 'react';
 import { countries } from '../../data/countries';
 import styles from './Form.module.css';
 import type { SearchFormData } from '../../types';
+import Alert from '../Alert/Alert';
 
-export default function Form() {
+type FormProps = {
+    fetchWeather: (city: string, country: string) => Promise<void>;
+};
+
+export default function Form({ fetchWeather }: FormProps) {
     const [formData, setFormData] = useState<SearchFormData>({
         city: '',
         country: ''
     });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(formData);
-    };
+    const [alert, setAlert] = useState('');
 
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!formData.city || !formData.country) {
+            setAlert('Por favor complete todos los campos');
+            return;
+        }
+
+        fetchWeather(formData.city, formData.country);
+    };
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -47,6 +58,7 @@ export default function Form() {
             </div>
 
             <input type="submit"  value="Consultar clima" />
+            {alert && <Alert>{alert}</Alert>}
         </form>
     )
 }
